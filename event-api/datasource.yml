@@ -1,0 +1,13 @@
+# # config file version
+apiVersion: 1
+
+# # list of datasources that should be deleted from the database
+deleteDatasources:
+
+# # list of datasources to insert/update depending
+datasources:
+  - name: Prometheus
+    access: proxy
+    type: prometheus
+    url: http://host.docker.internal:9090
+    isDefault: true
