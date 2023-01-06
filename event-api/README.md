@@ -20,3 +20,4 @@ session
 user ms with mapping events
 image storage
 cicd
+mvn wrapper

@@ -240,6 +240,37 @@
                     </execution>
                 </executions>
             </plugin>
+<!--            TODO update below plugin-->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.39.0</version>
+                <configuration>
+                    <pushRegistry>localhost:5000</pushRegistry>
+                    <containerNamePattern>%n</containerNamePattern>
+                    <images>
+                        <image>
+                            <alias>maven-demo</alias>
+                            <name>my1795/docker-demo:${project.version}</name>
+                            <build>
+                                <from>openjdk:11-alpine</from>
+                                <assemblies>
+                                    <assembly>
+                                        <mode>dir</mode>
+                                        <descriptorRef>artifact</descriptorRef>
+                                    </assembly>
+                                </assemblies>
+                                <entryPoint>java -jar maven/${project.artifactId}-${project.version}.jar</entryPoint>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>8888:8888</port>
+                                </ports>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
