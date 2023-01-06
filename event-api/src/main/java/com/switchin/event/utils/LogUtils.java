@@ -4,8 +4,8 @@ public enum LogUtils {
 
     REGULAR_CALL_SUCCESS_MESSAGE("%s called w/ success - %s"),
     REGULAR_CALL_ERROR_MESSAGE("%s called w/ error - %s"),
-    NO_BOOK_WITH_ID_MESSAGE("No event with id %d"),
-    CANNOT_CREATE_BOOK_MESSAGE("Cannot create a new event"),
+    NO_EVENT_WITH_ID_MESSAGE("No event with id %d"),
+    CANNOT_CREATE_EVENT_MESSAGE("Cannot create a new event"),
     RUN_HTTP_SERVER_SUCCESS_MESSAGE("HTTP server running on port %s"),
     RUN_HTTP_SERVER_ERROR_MESSAGE("Cannot run HTTP server"),
     NULL_OFFSET_ERROR_MESSAGE("Offset can't be null. Page %s and limit %s"),
