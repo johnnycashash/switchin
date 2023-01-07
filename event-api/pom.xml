@@ -22,6 +22,10 @@
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <jacoco-plugin.version>0.8.6</jacoco-plugin.version>
+        <image.registry>registry.hub.docker.com</image.registry>
+        <image.repo>jagansingh</image.repo>
+        <app.port.expose>8888</app.port.expose>
+        <app.port.bind>8888:8888</app.port.bind>
     </properties>
 
     <dependencyManagement>
@@ -234,11 +238,11 @@
                 <version>0.39.0</version>
                 <configuration>
                     <verbose>true</verbose>
-                    <pushRegistry>registry.hub.docker.com</pushRegistry>
+                    <pushRegistry>${image.registry}</pushRegistry>
                     <images>
                         <image>
-                            <alias>event-api</alias>
-                            <name>jagansingh/event-api:${project.version}</name>
+                            <alias>${project.artifactId}</alias>
+                            <name>${image.repo}/${project.artifactId}:${project.version}</name>
                             <build>
                                 <from>eclipse-temurin:11-alpine</from>
                                 <tags>
@@ -252,13 +256,13 @@
                                     </assembly>
                                 </assemblies>
                                 <ports>
-                                    <port>8888</port>
+                                    <port>${app.port.expose}</port>
                                 </ports>
                                 <entryPoint>java -jar maven/${project.artifactId}-${project.version}.jar</entryPoint>
                             </build>
                             <run>
                                 <ports>
-                                    <port>8888:8888</port>
+                                    <port>${app.port.bind}</port>
                                 </ports>
                             </run>
                         </image>

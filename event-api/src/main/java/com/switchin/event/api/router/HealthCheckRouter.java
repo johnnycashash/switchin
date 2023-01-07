@@ -31,6 +31,13 @@ public class HealthCheckRouter {
         );
 
         router.get("/health").handler(healthCheckHandler);
+        //TODO: remove temp health check and add readiness and livelyness probe endpoints
+        final HealthCheckHandler healthCheckHandlerMock = HealthCheckHandler.create(vertx);
+
+        healthCheckHandlerMock.register("elasticsearch",
+                promise -> promise.complete(Status.OK())
+        );
+        router.get("/healthmock").handler(healthCheckHandlerMock);
     }
 
 }
