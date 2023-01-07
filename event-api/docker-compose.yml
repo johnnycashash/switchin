@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
-  events-postgresql:
-    container_name: event-store-postgresql
-    image: postgres:12-alpine
-    environment:
-      POSTGRES_DB: events
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: AXEe263eqPFqwy4z
-    ports:
-      - "5432:5432"
-    volumes:
-      - event-store-postgresql-local:/var/lib/postgresql/data
-
   events-prometheus:
     container_name: event-store-prometheus
     image: prom/prometheus:v2.24.0
@@ -55,5 +43,4 @@ services:
       - "5601:5601"
 
 volumes:
-  event-store-postgresql-local:
   event-store-elasticsearch-local:

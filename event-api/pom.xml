@@ -6,7 +6,7 @@
 
     <groupId>com.switchin</groupId>
     <artifactId>event-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -241,6 +241,10 @@
                             <name>jagansingh/event-api:${project.version}</name>
                             <build>
                                 <from>eclipse-temurin:11-alpine</from>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                    <tag>latest</tag>
+                                </tags>
                                 <assemblies>
                                     <assembly>
                                         <mode>dir</mode>
