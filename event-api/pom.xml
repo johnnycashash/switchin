@@ -10,6 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <vertx.launcher>com.switchin.event.Main</vertx.launcher>
 
         <vertx.version>4.0.0</vertx.version>
         <junit-jupiter.version>5.9.0</junit-jupiter.version>
@@ -21,9 +22,6 @@
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <jacoco-plugin.version>0.8.6</jacoco-plugin.version>
-
-        <main.verticle>com.switchin.event.verticle.MainVerticle</main.verticle>
-        <launcher.class>io.vertx.core.Launcher</launcher.class>
     </properties>
 
     <dependencyManagement>
@@ -184,33 +182,22 @@
                 </configuration>
             </plugin>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin -->
             <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>${maven-shade-plugin.version}</version>
+                <groupId>io.reactiverse</groupId>
+                <artifactId>vertx-maven-plugin</artifactId>
+                <version>1.0.18</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <id>vmp</id>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>initialize</goal>
+                            <goal>package</goal>
                         </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <manifestEntries>
-                                        <Main-Class>${launcher.class}</Main-Class>
-                                        <Main-Verticle>${main.verticle}</Main-Verticle>
-                                    </manifestEntries>
-                                </transformer>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                            </transformers>
-                            <artifactSet></artifactSet>
-                            <outputFile>target/event-api-${project.version}-fat.jar</outputFile>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <redeploy>true</redeploy>
+                </configuration>
             </plugin>
 
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -240,26 +227,29 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            TODO update below plugin-->
+
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.39.0</version>
                 <configuration>
-                    <pushRegistry>localhost:5000</pushRegistry>
-                    <containerNamePattern>%n</containerNamePattern>
+                    <verbose>true</verbose>
+                    <pushRegistry>registry.hub.docker.com</pushRegistry>
                     <images>
                         <image>
-                            <alias>maven-demo</alias>
-                            <name>my1795/docker-demo:${project.version}</name>
+                            <alias>event-api</alias>
+                            <name>jagansingh/event-api:${project.version}</name>
                             <build>
-                                <from>openjdk:11-alpine</from>
+                                <from>eclipse-temurin:11-alpine</from>
                                 <assemblies>
                                     <assembly>
                                         <mode>dir</mode>
                                         <descriptorRef>artifact</descriptorRef>
                                     </assembly>
                                 </assemblies>
+                                <ports>
+                                    <port>8888</port>
+                                </ports>
                                 <entryPoint>java -jar maven/${project.artifactId}-${project.version}.jar</entryPoint>
                             </build>
                             <run>
