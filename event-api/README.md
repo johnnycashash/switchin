@@ -22,3 +22,6 @@ image storage
 cicd
 mvn wrapper
 helm
+linkerd
+ssl
+namespace
