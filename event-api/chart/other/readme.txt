@@ -29,9 +29,9 @@ minikube service quickstart-kb-http-ext
 
 Application:
 helm uninstall event-api -n event
-helm install event-api event-api/ --values event-api/values.yaml -n event
+helm install event-api ./switchin/event-api/chart/event-api/ --values ./switchin/event-api/chart/event-api/values.yaml -n event
 OR
-helm upgrade event-api event-api/ --values event-api/values.yaml -n event
+helm upgrade event-api ./switchin/event-api/chartevent-api/ --values event-api/values.yaml -n event
 
 minikube service event-api
 
