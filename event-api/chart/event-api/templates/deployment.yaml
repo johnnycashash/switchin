@@ -33,8 +33,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           env:
-            - name: OC_AGENT_HOST
-              value: "collector.linkerd-jaeger:55678"
             - name: ELASTIC_USER
               valueFrom:
                 secretKeyRef:
