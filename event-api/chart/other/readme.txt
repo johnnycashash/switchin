@@ -7,6 +7,9 @@ linkerd install --set proxyInit.runAsRoot=true | kubectl apply -f -
 linkerd check
 linkerd viz install | kubectl apply -f
 linkerd check
+linkerd jaeger install | kubectl apply -f -
+linkerd check
+#pending exploration on jaeger
 linkerd viz dashboard &
 
 
@@ -24,8 +27,9 @@ kubectl expose service quickstart-kb-http --port=5601 --target-port=5601 --name=
 Optional: kubectl expose service quickstart-es-http --port=9200 --target-port=9200 --name=quickstart-es-http-ext --type=NodePort -n event
 echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 
-minikube service list
-minikube service quickstart-kb-http-ext
+minikube service quickstart-kb-http-ext -n event
+
+PUT /events
 
 Application:
 helm uninstall event-api -n event
@@ -33,7 +37,8 @@ helm install event-api ./switchin/event-api/chart/event-api/ --values ./switchin
 OR
 helm upgrade event-api ./switchin/event-api/chart/event-api/ --values ./switchin/event-api/chart/event-api/values.yaml -n event
 
-minikube service event-api
+minikube service list -n event
+minikube service event-api -n event
 
 Follow:
 https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html
