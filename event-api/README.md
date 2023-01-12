@@ -6,7 +6,7 @@ Pending:
 cleanup.
 Missing jvm dashboards.
 event bus comm. with other ms.
-side car for these monitoring.
+side car for these monitoring or linkerd
 jmeter perf.
 visualvm
 test cases.
@@ -22,7 +22,8 @@ image storage
 cicd
 mvn wrapper
 helm
-linkerd
 ssl
 namespace
 vertx jaeger log4j2 configuration
+graalvm image
+ingress
