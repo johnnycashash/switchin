@@ -11,6 +11,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.micrometer.MicrometerMetricsOptions;
 import io.vertx.micrometer.VertxPrometheusOptions;
+import io.vertx.tracing.opentracing.OpenTracingOptions;
 
 public class Main {
 
@@ -36,7 +37,11 @@ public class Main {
                         .setPrometheusOptions(new VertxPrometheusOptions().setEnabled(true))
                         .setJvmMetricsEnabled(true)
                         .setMicrometerRegistry(registry)
-                        .setEnabled(true)));
+                        .setEnabled(true))
+
+                .setTracingOptions(
+                        new OpenTracingOptions()
+                ));
 
         vertx.deployVerticle(MainVerticle.class.getName())
                 .onFailure(throwable -> System.exit(-1));
