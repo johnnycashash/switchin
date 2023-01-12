@@ -14,7 +14,7 @@ mock data in db.
 dockerize app.
 kubernetes files.
 framework on top of ms.
-PUT /events?pretty
+PUT /events
 auth
 session
 user ms with mapping events
@@ -25,3 +25,4 @@ helm
 linkerd
 ssl
 namespace
+vertx jaeger log4j2 configuration

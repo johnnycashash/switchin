@@ -7,8 +7,9 @@ linkerd install --set proxyInit.runAsRoot=true | kubectl apply -f -
 linkerd check
 linkerd viz install | kubectl apply -f
 linkerd check
-linkerd jaeger install | kubectl apply -f -
-linkerd check
+#jaeger after vertx jaeger log4j2 configuration
+#linkerd jaeger install | kubectl apply -f -
+#linkerd check
 #pending exploration on jaeger
 linkerd viz dashboard &
 
