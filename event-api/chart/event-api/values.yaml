@@ -49,7 +49,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: switchin.event-api.com
+    - host: eventapi.com
       paths:
         - path: /
           pathType: ImplementationSpecific
