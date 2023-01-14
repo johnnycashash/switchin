@@ -14,6 +14,7 @@ linkerd check
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana -f https://raw.githubusercontent.com/linkerd/linkerd2/main/grafana/values.yaml
 linkerd viz install --set grafana.url=grafana.grafana:3000 | kubectl apply -f -
+kubectl apply -f ./switchin/event-api/chart/other/linkerd-dashboard-ingress.yaml
 linkerd viz dashboard &
 
 
