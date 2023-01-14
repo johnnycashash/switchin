@@ -51,7 +51,7 @@ ingress:
   hosts:
     - host: switchineventapi.com
       paths:
-        - path: /
+        - path: /eventapi
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
