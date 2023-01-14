@@ -49,7 +49,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: event-api.local
+    - host: localhost
       paths:
         - path: /
           pathType: ImplementationSpecific
