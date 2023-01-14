@@ -44,11 +44,12 @@ service:
 ingress:
   enabled: false
   className: ""
-  annotations: {}
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
+    - host: event-api.local
       paths:
         - path: /
           pathType: ImplementationSpecific

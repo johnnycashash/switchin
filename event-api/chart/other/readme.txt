@@ -57,3 +57,9 @@ kubectl delete -f ./switchin/event-api/chart/other/kibana.yaml -n event
 kubectl delete service quickstart-kb-http-ext -n event
 
 
+Ingress:
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace \
+  --values ingress-controller.yaml
+
