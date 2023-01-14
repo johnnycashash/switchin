@@ -42,7 +42,7 @@ service:
   port: 8888
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations:
     ingress.kubernetes.io/rewrite-target: /
