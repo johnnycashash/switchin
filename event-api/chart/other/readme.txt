@@ -1,3 +1,9 @@
+Ingress:
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx ingress-nginx/ingress-nginx --values ingress-controller-linkerd-inject.yaml
+
+
 Linkerd(helm threw some error in pod crashloopbackoff):
 curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install | sh
 export PATH=$PATH:/home/jagansingh/.linkerd2/bin
@@ -14,7 +20,7 @@ linkerd check
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana -f https://raw.githubusercontent.com/linkerd/linkerd2/main/grafana/values.yaml
 linkerd viz install --set grafana.url=grafana.grafana:3000 | kubectl apply -f -
-#kubectl apply -f ./switchin/event-api/chart/other/linkerd-dashboard-ingress.yaml
+kubectl apply -f ./switchin/event-api/chart/other/linkerd-dashboard-ingress.yaml
 linkerd viz dashboard &
 
 
@@ -37,10 +43,6 @@ minikube service quickstart-kb-http-ext -n event
 PUT /events
 
 
-Ingress:
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-helm install ingress-nginx ingress-nginx/ingress-nginx
 
 
 Application:
@@ -69,3 +71,47 @@ kubectl delete service quickstart-kb-http-ext -n event
 
 
 
+
+
+
+
+
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx ingress-nginx/ingress-nginx --values ./switchin/event-api/chart/other/ingress-controller-linkerd-inject.yaml
+curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install | sh
+export PATH=$PATH:/home/jagansingh/.linkerd2/bin
+linkerd check --pre
+linkerd install --crds | kubectl apply -f -
+linkerd install --set proxyInit.runAsRoot=true | kubectl apply -f -
+linkerd check
+linkerd viz install | kubectl apply -f -
+linkerd check
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install grafana -n grafana --create-namespace grafana/grafana -f https://raw.githubusercontent.com/linkerd/linkerd2/main/grafana/values.yaml
+linkerd viz install --set grafana.url=grafana.grafana:3000 | kubectl apply -f -
+kubectl apply -f ./switchin/event-api/chart/other/linkerd-dashboard-ingress.yaml
+linkerd viz dashboard &
+
+helm repo add elastic https://helm.elastic.co
+helm repo update
+
+helm install elastic-operator elastic/eck-operator -n elastic-system --create-namespace
+
+kubectl apply -f ./switchin/event-api/chart/other/elastic.yaml -n event
+kubectl apply -f ./switchin/event-api/chart/other/kibana.yaml -n event
+kubectl expose service quickstart-kb-http --port=5601 --target-port=5601 --name=quickstart-kb-http-ext --type=NodePort -n event
+Optional: kubectl expose service quickstart-es-http --port=9200 --target-port=9200 --name=quickstart-es-http-ext --type=NodePort -n event
+echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
+
+helm uninstall event-api -n event
+helm install event-api ./switchin/event-api/chart/event-api/ --values ./switchin/event-api/chart/event-api/values.yaml -n event
+
+minikube service list -n event
+
+minikube service quickstart-kb-http-ext -n event
+
+minikube service event-api -n event
+
+PUT /events
