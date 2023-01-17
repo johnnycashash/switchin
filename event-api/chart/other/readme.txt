@@ -5,7 +5,7 @@ linkerd check --pre
 linkerd install --crds | kubectl apply -f -
 linkerd install --set proxyInit.runAsRoot=true | kubectl apply -f -
 linkerd check
-linkerd viz install | kubectl apply -f
+linkerd viz install | kubectl apply -f -
 linkerd check
 #jaeger after vertx jaeger log4j2 configuration
 #linkerd jaeger install | kubectl apply -f -
@@ -14,7 +14,7 @@ linkerd check
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana -f https://raw.githubusercontent.com/linkerd/linkerd2/main/grafana/values.yaml
 linkerd viz install --set grafana.url=grafana.grafana:3000 | kubectl apply -f -
-kubectl apply -f ./switchin/event-api/chart/other/linkerd-dashboard-ingress.yaml
+#kubectl apply -f ./switchin/event-api/chart/other/linkerd-dashboard-ingress.yaml
 linkerd viz dashboard &
 
 
@@ -36,6 +36,13 @@ minikube service quickstart-kb-http-ext -n event
 
 PUT /events
 
+
+Ingress:
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx ingress-nginx/ingress-nginx
+
+
 Application:
 helm uninstall event-api -n event
 helm install event-api ./switchin/event-api/chart/event-api/ --values ./switchin/event-api/chart/event-api/values.yaml -n event
@@ -44,6 +51,8 @@ helm upgrade event-api ./switchin/event-api/chart/event-api/ --values ./switchin
 
 minikube service list -n event
 minikube service event-api -n event
+
+minikube tunnel
 
 Follow:
 https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html
@@ -58,9 +67,5 @@ kubectl delete -f ./switchin/event-api/chart/other/kibana.yaml -n event
 kubectl delete service quickstart-kb-http-ext -n event
 
 
-Ingress:
-helm upgrade --install ingress-nginx ingress-nginx \
-  --repo https://kubernetes.github.io/ingress-nginx \
-  --namespace ingress-nginx --create-namespace \
-  --values ingress-controller.yaml
+
 

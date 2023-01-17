@@ -27,3 +27,4 @@ namespace
 vertx jaeger log4j2 configuration
 graalvm image
 ingress
+Flagger
