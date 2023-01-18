@@ -28,9 +28,8 @@ Event api is part of switchin product, giving access to base event. Based on Ver
 - helm install event-api ./switchin/event-api/chart/event-api/ --values ./switchin/event-api/chart/event-api/values.yaml -n event
 
 - Extra configs:
-    - Add below in file %WINDIR%\System32\drivers\etc\hosts
-
-      - 127.0.0.1 kubernetes.docker.internal switchin-event.api kibana.domain.example dashboard.example.com
+    - Add below in file %WINDIR%\System32\drivers\etc\hosts in windows and WSL2 machine in /etc/hosts
+      - 127.0.0.1 switchin-event.api dashboard.example.com kibana.domain.example
         - event-api - switchin-event.api
         - kibana - kibana.domain.example elastic/echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
         - linkerd - dashboard.example.com   admin/admin
