@@ -21,7 +21,7 @@ user ms with mapping events
 image storage
 cicd
 mvn wrapper
-helm
+helmify all and chart storage
 ssl
 namespace
 vertx jaeger log4j2 configuration
