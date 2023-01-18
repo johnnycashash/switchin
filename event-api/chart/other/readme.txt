@@ -102,6 +102,7 @@ helm install elastic-operator elastic/eck-operator -n elastic-system --create-na
 kubectl create namespace event
 kubectl apply -f ./switchin/event-api/chart/other/elastic.yaml -n event
 kubectl apply -f ./switchin/event-api/chart/other/kibana.yaml -n event
+kubectl apply -f ./switchin/event-api/chart/other/kibana-ingress.yaml -n event
 kubectl expose service quickstart-kb-http --port=5601 --target-port=5601 --name=quickstart-kb-http-ext --type=NodePort -n event
 echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 helm install event-api ./switchin/event-api/chart/event-api/ --values ./switchin/event-api/chart/event-api/values.yaml -n event
