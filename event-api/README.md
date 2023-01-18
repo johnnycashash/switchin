@@ -26,14 +26,17 @@ Event api is part of switchin product, giving access to base event. Based on Ver
 - kubectl expose service quickstart-kb-http --port=5601 --target-port=5601 --name=quickstart-kb-http-ext --type=NodePort -n event
 - echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 - helm install event-api ./switchin/event-api/chart/event-api/ --values ./switchin/event-api/chart/event-api/values.yaml -n event
-
-- Extra configs:
+- Configs:
     - Add below in file %WINDIR%\System32\drivers\etc\hosts in windows and WSL2 machine in /etc/hosts
       - 127.0.0.1 switchin-event.api dashboard.example.com kibana.domain.example
         - event-api - switchin-event.api
         - kibana - kibana.domain.example elastic/echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
         - linkerd - dashboard.example.com   admin/admin
-    - Open Kibana and PUT /events
+- minikube tunnel
+- Open kibana.domain.example and PUT /events
+- Checkout dashboard.example.com
+- Send traffic to switchin-event.api
+- Send traffic to switchin-event.api
 
 
 
