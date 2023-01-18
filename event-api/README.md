@@ -34,7 +34,7 @@ Event api is part of switchin product, giving access to base event. Based on Ver
         - event-api - switchin-event.api
         - kibana - kibana.domain.example elastic/echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
         - linkerd - dashboard.example.com   admin/admin
-    - PUT /events
+    - Open Kibana and PUT /events
 
 
 
