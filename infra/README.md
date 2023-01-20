@@ -1,5 +1,8 @@
 # Infra
 
+### Prerequisites(Any other combination can also work)
+- WSL2, Docker, Minikube, Kubectl, Helm, k9s, Mobaxterm, Git, Intellij Idea
+
 ### Linkerd: (helm threw some error in pod crashloopbackoff):
 - curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install | sh
 - export PATH=$PATH:/home/jagansingh/.linkerd2/bin
@@ -17,7 +20,7 @@
 ### Ingress with Linkerd Injected:
 - helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 - helm repo update
-- helm install ingress-nginx ingress-nginx/ingress-nginx --values ./ingress/ingress-controller-linkerd-inject.yaml
+- helm install ingress-nginx -n ingress --create-namespace ingress-nginx/ingress-nginx --values ./ingress/ingress-controller-linkerd-inject.yaml
 
 ### Linkerd Dashboard Ingress Rule:
 - kubectl apply -f ./linkerd/linkerd-dashboard-ingress.yaml
@@ -27,7 +30,7 @@
 - helm repo update
 - helm install elastic-operator elastic/eck-operator -n elastic-system --create-namespace
 
-### Elastic/Kibana Cluster Setup:
+### Elastic/Kibana Cluster Setup(If ImagePullBackOff error, do minikube ssh and then docker pull that image version):
 - kubectl create namespace elastic
 - kubectl apply -f ./elastic-kibana/elastic.yaml -n elastic
 - kubectl apply -f ./elastic-kibana/kibana.yaml -n elastic
@@ -41,7 +44,7 @@
 ### Kibana url:
 - kibana.domain.example 
 - user=elastic
-- password=echo $(kubectl get secret -n event quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
+- password=echo $(kubectl get secret -n elastic quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 
 ### Linkerd url:
 - dashboard.example.com   
