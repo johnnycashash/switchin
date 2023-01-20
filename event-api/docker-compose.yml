@@ -5,7 +5,7 @@ services:
     container_name: event-store-prometheus
     image: prom/prometheus:v2.24.0
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitor/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
 
@@ -13,8 +13,8 @@ services:
     container_name: event-store-grafana
     image: grafana/grafana:7.3.7
     volumes:
-      - ./dashboard.json:/etc/grafana/provisioning/dashboards/dashboard.json
-      - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./monitor/dashboard.json:/etc/grafana/provisioning/dashboards/dashboard.json
+      - ./monitor/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
     environment:
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: "/etc/grafana/provisioning/dashboards/dashboard.json"
     ports:

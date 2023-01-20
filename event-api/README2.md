@@ -1,0 +1,26 @@
+# Pending:
+- cleanup.
+- Missing jvm dashboards.
+- event bus comm. with other ms.
+- side car for these monitoring or linkerd
+- jmeter perf.
+- visualvm
+- test cases.
+- mock data in db.
+- dockerize app.
+- kubernetes files.
+- framework on top of ms.
+- PUT /events
+- auth
+- session
+- user ms with mapping events
+- image storage
+- cicd
+- mvn wrapper
+- helmify all and chart storage
+- ssl
+- namespace
+- vertx jaeger log4j2 configuration
+- graalvm image
+- ingress
+- Flagger
