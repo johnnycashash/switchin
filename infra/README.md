@@ -1,7 +1,8 @@
 # Infra
 
 ### Prerequisites(Any other combination can also work)
-- WSL2, Docker, Minikube, Kubectl, Helm, k9s, Mobaxterm, Git, Intellij Idea
+- Windows: WSL2, Docker, Mobaxterm, Git, Intellij Idea
+- WSL2 machine: Minikube(minikube start --memory 4096 --cpus 4), Kubectl, Helm, k9s, Git
 
 ### Linkerd: (helm threw some error in pod crashloopbackoff):
 - curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install | sh

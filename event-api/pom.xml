@@ -60,10 +60,10 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.vertx/vertx-opentracing -->
-        <dependency>
+  <!--      <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-opentracing</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/io.vertx/vertx-health-check -->
         <dependency>

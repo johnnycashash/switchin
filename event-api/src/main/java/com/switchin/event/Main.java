@@ -5,13 +5,14 @@ import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.binder.system.UptimeMetrics;
 import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
+import io.micrometer.core.lang.NonNull;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.micrometer.MicrometerMetricsOptions;
 import io.vertx.micrometer.VertxPrometheusOptions;
-import io.vertx.tracing.opentracing.OpenTracingOptions;
+//import io.vertx.tracing.opentracing.OpenTracingOptions;
 
 public class Main {
 
@@ -24,7 +25,7 @@ public class Main {
         registry.config().meterFilter(
                 new MeterFilter() {
                     @Override
-                    public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
+                    public DistributionStatisticConfig configure(@NonNull Meter.Id id, @NonNull DistributionStatisticConfig config) {
                         return DistributionStatisticConfig.builder()
                                 .percentilesHistogram(true)
                                 .build()
@@ -39,9 +40,10 @@ public class Main {
                         .setMicrometerRegistry(registry)
                         .setEnabled(true))
 
-                .setTracingOptions(
-                        new OpenTracingOptions()
-                ));
+//                .setTracingOptions(
+//                        new OpenTracingOptions()
+//                )
+        );
 
         vertx.deployVerticle(MainVerticle.class.getName())
                 .onFailure(throwable -> System.exit(-1));
