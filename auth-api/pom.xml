@@ -7,7 +7,7 @@
 
   <properties>
     <vertx.version>4.0.0</vertx.version>
-    <main.verticle>io.vertx.starter.MainVerticle</main.verticle>
+    <main.verticle>com.switchin.auth.MainVerticle</main.verticle>
   </properties>
 
   <dependencyManagement>
