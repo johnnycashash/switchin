@@ -29,7 +29,7 @@ public class MainVerticleTest {
   @Test
   public void testThatTheServerIsStarted(TestContext tc) {
     Async async = tc.async();
-    vertx.createHttpClient().request(HttpMethod.GET, 8080, "localhost", "/", tc.asyncAssertSuccess(req -> {
+    vertx.createHttpClient().request(HttpMethod.GET, 8081, "localhost", "/", tc.asyncAssertSuccess(req -> {
       req.send(tc.asyncAssertSuccess(resp -> {
         tc.assertEquals(200, resp.statusCode());
         resp.body(tc.asyncAssertSuccess(body -> {

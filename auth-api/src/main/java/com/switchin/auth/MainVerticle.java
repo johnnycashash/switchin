@@ -17,7 +17,7 @@ public class MainVerticle extends AbstractVerticle {
         router.route("/").handler(req -> req.response().end("Hello Vert.x!"));
         JsonObject keycloakJson = new JsonObject()
                 .put("realm", "switchin")
-                .put("auth-server-url", "http://localhost:9080/auth")
+                .put("auth-server-url", "http://switchin-keycloak")
                 .put("ssl-required", "external")
                 .put("resource", "event")
                 .put("public-client", true)
@@ -31,7 +31,7 @@ public class MainVerticle extends AbstractVerticle {
         router.get("/protected/currentuser").handler(this::currentUser);
         vertx.createHttpServer()
                 .requestHandler(router)
-                .listen(8080);
+                .listen(8081);
     }
 
     public void currentUser(RoutingContext context) {
