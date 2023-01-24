@@ -7,9 +7,9 @@ metadata:
 spec:
   tls:
     - hosts:
-        - KEYCLOAK_HOST
+        - switchin-keycloak
   rules:
-    - host: KEYCLOAK_HOST
+    - host: switchin-keycloak
       http:
         paths:
           - path: /
