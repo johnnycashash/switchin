@@ -37,9 +37,14 @@
 - kubectl apply -f ./elastic-kibana/kibana.yaml -n elastic
 - kubectl apply -f ./elastic-kibana/kibana-ingress.yaml -n elastic
 
+### Keycloak
+- kubectl create namespace keycloak
+- kubectl create -n keycloak -f https://raw.githubusercontent.com/keycloak/keycloak-quickstarts/latest/kubernetes-examples/keycloak.yaml
+- kubectl create -n keycloak -f ./keycloak/keycloak-ingress.yaml
+
 ### Configs:
 - Add below in file %WINDIR%\System32\drivers\etc\hosts in windows and WSL2 machine in /etc/hosts
-  - 127.0.0.1 dashboard.example.com kibana.domain.example
+  - 127.0.0.1 dashboard.example.com kibana.domain.example switchin-keycloak
 - minikube tunnel
 
 ### Kibana url:
@@ -48,6 +53,11 @@
 - password=echo $(kubectl get secret -n elastic quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 
 ### Linkerd url:
-- dashboard.example.com   
+- dashboard.example.com
+- user=admin
+- password=admin
+
+### Keycloak url:
+- switchin-keycloak
 - user=admin
 - password=admin
